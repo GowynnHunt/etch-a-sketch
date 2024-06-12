@@ -1,0 +1,62 @@
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+h1 {
+  color: white;
+  margin: 0 0 0.5em 0;
+}
+
+#prompt {
+  color: black;
+  padding: 0.5em 0.25em;
+  margin: 0 0 1em 0;
+  border: 3px solid slateblue;
+  border-radius: 0.5em;
+}
+
+@keyframes hoverHighlight {
+  0% {
+    background-color: #e9e9ed;
+  }
+  100% {
+    background-color: slateblue;
+  }
+}
+
+#prompt:hover {
+  animation-name: hoverHighlight;
+  animation-duration: 0.3s;
+  border-color: purple;
+  background-color: slateblue;
+}
+
+#grid-container {
+  padding: 1em;
+  width: 80vh;
+  height: 80vh;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
+
+.row {
+  display: flex;
+  flex: auto;
+  padding: 0;
+}
+
+.square {
+  border: 1px solid black;
+  display: flex;
+  flex: auto;
+  background-color: white;
+}
