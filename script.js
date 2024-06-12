@@ -3,6 +3,10 @@ const button = document.querySelector("#prompt");
 
 button.addEventListener("click", buttonHandler);
 
+function getColor() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
 function buttonHandler(event) {
   event.stopPropagation();
   if (event.target.id !== "prompt") {
@@ -25,14 +29,14 @@ function buttonHandler(event) {
   generateGrid(userInput);
 }
 
+function hoverHandler(event) {
+  event.target.style = `background-color: ${getColor()}`;
+}
+
 function clearGrid() {
   while (grid.firstChild) {
     grid.removeChild(grid.firstChild);
   }
-}
-
-function hoverHandler(event) {
-  event.target.style = "background-color: blue";
 }
 
 function generateGrid(userInput) {
