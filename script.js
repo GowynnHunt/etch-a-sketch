@@ -2,6 +2,7 @@ const grid = document.querySelector("#grid-container");
 const button = document.querySelector("#prompt");
 
 button.addEventListener("click", buttonHandler);
+grid.addEventListener("mouseover", hoverHandler);
 
 function getColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);
@@ -30,7 +31,12 @@ function buttonHandler(event) {
 }
 
 function hoverHandler(event) {
-  event.target.style = `background-color: ${getColor()}`;
+  if (event.target.className !== "square") {
+    return;
+  }
+  // console.log(event.target);
+  event.target.style.backgroundColor = `${getColor()}`;
+  event.target.style.opacity -= 0.1;
 }
 
 function clearGrid() {
@@ -47,7 +53,7 @@ function generateGrid(userInput) {
     for (let index = 0; index < userInput; index++) {
       const square = document.createElement("div");
       square.setAttribute("class", "square");
-      square.addEventListener("mouseover", hoverHandler);
+      square.style.opacity = 1;
       row.appendChild(square);
     }
 
