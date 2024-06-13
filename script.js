@@ -1,14 +1,26 @@
-const grid = document.querySelector("#grid-container");
-const button = document.querySelector("#prompt");
+const elemBody = document.querySelector("body");
+const elemGrid = document.querySelector("#grid-container");
+const elemPrompt = document.querySelector("#prompt");
+const elemRainbow = document.querySelector("#rainbow-button");
+const elemOpacity = document.querySelector("#opacity-button");
 
-button.addEventListener("click", buttonHandler);
-grid.addEventListener("mouseover", hoverHandler);
+let rainbow = false;
+let opacity = false;
+
+elemGrid.addEventListener("mouseover", hoverHandler);
+elemPrompt.addEventListener("click", promptHandler);
+elemRainbow.addEventListener("click", rainbowHandler);
+elemOpacity.addEventListener("click", opacityHandler);
 
 function getColor() {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  if (rainbow) {
+    return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  } else {
+    return "black";
+  }
 }
 
-function buttonHandler(event) {
+function promptHandler(event) {
   event.stopPropagation();
   if (event.target.id !== "prompt") {
     return;
@@ -30,18 +42,47 @@ function buttonHandler(event) {
   generateGrid(userInput);
 }
 
+function rainbowHandler(event) {
+  event.stopPropagation();
+  if (event.target.id !== "rainbow-button") {
+    return;
+  }
+
+  elemBody.classList.toggle("rainbow-box");
+  elemGrid.classList.toggle("shadow-box");
+  if (!rainbow) {
+    rainbow = true;
+  } else {
+    rainbow = false;
+  }
+}
+
+function opacityHandler(event) {
+  event.stopPropagation();
+  if (event.target.id !== "opacity-button") {
+    return;
+  }
+
+  if (!opacity) {
+    opacity = true;
+  } else {
+    opacity = false;
+  }
+}
+
 function hoverHandler(event) {
   if (event.target.className !== "square") {
     return;
   }
-  // console.log(event.target);
   event.target.style.backgroundColor = `${getColor()}`;
-  event.target.style.opacity -= 0.1;
+  if (opacity) {
+    event.target.style.opacity -= 0.1;
+  }
 }
 
 function clearGrid() {
-  while (grid.firstChild) {
-    grid.removeChild(grid.firstChild);
+  while (elemGrid.firstChild) {
+    elemGrid.removeChild(elemGrid.firstChild);
   }
 }
 
@@ -57,7 +98,7 @@ function generateGrid(userInput) {
       row.appendChild(square);
     }
 
-    grid.appendChild(row);
+    elemGrid.appendChild(row);
   }
 }
 
